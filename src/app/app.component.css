@@ -1,0 +1,19 @@
+
+::ng-deep body {
+  background-color: #fff5ee;
+}
+
+::ng-deep * {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  justify-content: center
+}
+
+::ng-deep .p-button {
+  background: #696969;
+  border-color: #545454;
+}

@@ -1,0 +1,69 @@
+<div class="container">
+
+  <div class="ui-g">
+    <form class="ui-g" autocomplete="off">
+
+      <h1>Cadastrar usuário</h1>
+
+      <div class="ui-g">
+        <span class="input-form p-float-label">
+          <input id="nome-input" type="text" pInputText>
+          <label for="nome-input">Nome</label>
+        </span>
+
+        <span class="input-form p-float-label">
+          <input id="nome-input" type="number" pInputText>
+          <label for="nome-input">CPF</label>
+        </span>
+
+        <span class="input-form p-float-label">
+          <input id="nome-input" type="email" pInputText>
+          <label for="nome-input">E-mail</label>
+        </span>
+
+        <span class="input-form p-float-label">
+          <input id="nome-input" type="password" pInputText>
+          <label for="nome-input">Senha</label>
+        </span>
+      </div>
+
+      <div class="ui-g button-right">
+        <br>
+        <button pButton class="primary-color" type="submit" label="Cadastrar"></button>
+      </div>
+
+   </form>
+  </div>
+
+  <hr style="height:2px; width: 100%; margin: 50px;">
+
+  <div class="ui-g" style="width: 100%;">
+
+    <h1>Usuários</h1>
+
+    <p-table [value]="users" [autoLayout]="true">
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="name">Nome <p-sortIcon field="name"></p-sortIcon></th>
+          <th>Cargo</th>
+          <th>Idade</th>
+          <th>Editar/Excluir</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-user>
+        <tr>
+          <td><span>{{ user.nome }}</span></td>
+          <td>{{user.cargo}}</td>
+          <td>{{user.idade}}</td>
+          <td>
+            <a pButton class="espaco-icones" icon="fa fa-pencil" pTooltip="Editar" tooltipPosition="top"></a>
+            <button pButton class="espaco-icones" icon="fa fa-trash" pTooltip="Excluir" tooltipPosition="top">
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
