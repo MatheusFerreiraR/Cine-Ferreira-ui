@@ -1,12 +1,12 @@
 export class User {
-  id: number;
+  id: number | null;
   nome: string;
   cpf: string;
   email: string;
   senha: string;
 
   constructor(
-    id: number,
+    id: number | null,
     nome: string,
     cpf: string,
     email: string,

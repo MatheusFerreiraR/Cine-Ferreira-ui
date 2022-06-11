@@ -8,7 +8,7 @@
   padding: 0;
 }
 
-.container {
+::ng-deep .container {
   display: flex;
   justify-content: center
 }
@@ -16,4 +16,25 @@
 ::ng-deep .p-button {
   background: #696969;
   border-color: #545454;
+}
+
+::ng-deep .error-message-div {
+  color: red;
+  font-size: 30sp;
+}
+
+::ng-deep .delete-button {
+  background: #990000;
+  border: red
+}
+
+
+::ng-deep .delete-button:hover {
+  background-color: red !important;
+}
+
+::ng-deep .header-table-align {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
 }

@@ -36,8 +36,8 @@ export class ErrorHandlerService {
       }
 
       try {
-        msgUsuario = errorResponse.error[0].mensagemUsuario;
-        msgDev = errorResponse.error[0].mensagemDesenvolvedor;
+        msgUsuario = errorResponse.error[0].userMessage;
+        msgDev = errorResponse.error[0].devMessage;
 
         console.error('Ocorreu um erro', errorResponse);
         console.error('Mensagem do desenvolvedor', msgDev);

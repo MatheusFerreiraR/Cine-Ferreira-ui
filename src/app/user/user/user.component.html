@@ -1,52 +1,85 @@
 <div class="container">
 
   <div class="ui-g">
-    <form class="ui-g" autocomplete="off">
+    <form class="ui-g" autocomplete="off" (ngSubmit)="submit()" [formGroup]="form">
 
-      <h1>Cadastrar usuário</h1>
+      <h1>{{isEditing ? "Editar" : "Cadastrar"}} usuário</h1>
 
       <div class="ui-g">
         <span class="input-form p-float-label">
-          <input id="nome-input" type="text" pInputText>
+          <input id="nome-input" type="text" pInputText formControlName="nome"
+          onkeypress="return (event.charCode > 64 && event.charCode < 91)
+            || (event.charCode > 96 && event.charCode < 123)
+            || (event.charCode > 191 && event.charCode <= 255)
+            || (event.charCode == 32)"
+          >
           <label for="nome-input">Nome</label>
         </span>
 
         <span class="input-form p-float-label">
-          <input id="nome-input" type="number" pInputText>
+          <input id="nome-input" type="text" pInputText formControlName="cpf"
+          onkeypress="return event.charCode >= 48 && event.charCode <= 57">
           <label for="nome-input">CPF</label>
         </span>
 
         <span class="input-form p-float-label">
-          <input id="nome-input" type="email" pInputText>
+          <input id="nome-input" type="email" pInputText formControlName="email">
           <label for="nome-input">E-mail</label>
         </span>
 
         <span class="input-form p-float-label">
-          <input id="nome-input" type="password" pInputText>
+          <input id="nome-input" type="password" autocomplete="new-password" pInputText formControlName="senha" name="senha">
           <label for="nome-input">Senha</label>
+
         </span>
       </div>
 
       <div class="ui-g button-right">
         <br>
-        <button pButton class="primary-color" type="submit" label="Cadastrar"></button>
+        <button pButton type="reset" class="primary-color" style="margin-right: 10px;"
+          *ngIf="isEditing" label="cancelar" (click)="stopEdit()">
+        </button>
+
+        <button pButton class="primary-color" type="submit">
+          {{isEditing ? "Editar" : "Cadastrar"}}
+        </button>
       </div>
 
    </form>
+
+   <div class="error-message-div" *ngIf="showErrorReq">
+    <p>{{userMsg}}</p>
+   </div>
   </div>
 
   <hr style="height:2px; width: 100%; margin: 50px;">
 
   <div class="ui-g" style="width: 100%;">
 
-    <h1>Usuários</h1>
 
-    <p-table [value]="users" [autoLayout]="true">
+    <p-table #dt [value]="users" [autoLayout]="true"
+      styleClass="p-datatable-customers"
+      [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+      [filterDelay]="0"
+      [paginator]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} totais"
+      [globalFilterFields]="['nome', 'user.nome']">
+
+      <ng-template pTemplate="caption">
+          <div class="table-header header-table-align">
+              LISTA DE USUÁRIOS
+              <span class="p-input-icon-left">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text"  (input)="dt.filterGlobal($event.target.value, 'contains')"
+                  placeholder="Procure pelo nome" />
+              </span>
+          </div>
+      </ng-template>
+
       <ng-template pTemplate="header">
         <tr>
-          <th pSortableColumn="name">Nome <p-sortIcon field="name"></p-sortIcon></th>
-          <th>Cargo</th>
-          <th>Idade</th>
+          <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon></th>
+          <th>CPF</th>
+          <th>E-mail</th>
           <th>Editar/Excluir</th>
         </tr>
       </ng-template>
@@ -54,15 +87,25 @@
       <ng-template pTemplate="body" let-user>
         <tr>
           <td><span>{{ user.nome }}</span></td>
-          <td>{{user.cargo}}</td>
-          <td>{{user.idade}}</td>
+          <td>{{user.cpf}}</td>
+          <td>{{user.email}}</td>
           <td>
-            <a pButton class="espaco-icones" icon="fa fa-pencil" pTooltip="Editar" tooltipPosition="top"></a>
-            <button pButton class="espaco-icones" icon="fa fa-trash" pTooltip="Excluir" tooltipPosition="top">
+            <button pButton class="espaco-icones" icon="fa fa-trash" pTooltip="Editar"
+              (click)="getUserToEdit(user.cpf)" tooltipPosition="top">
+              <i class="pi pi-pencil"></i>
+            </button>
+            <button pButton class="espaco-icones delete-button" icon="fa fa-trash"
+              (click)="deletar(user.id)" pTooltip="Excluir" tooltipPosition="top" style="height: 3rem">
+              <i class="pi pi-trash"></i>
             </button>
           </td>
         </tr>
       </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="8">Nenhum usuário encontrado.</td>
+        </tr>
+    </ng-template>
     </p-table>
   </div>
 </div>

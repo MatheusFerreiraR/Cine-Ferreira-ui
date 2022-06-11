@@ -11,14 +11,21 @@ import { SegHttp } from '../seguranca/seg-http';
 export class UserService {
   userUrl: string;
 
-  constructor(private http: SegHttp) {
+  constructor(private http: HttpClient) {
     this.userUrl = `${environment.apiUrl}/user`;
   }
 
   listarTodas(): Promise<any> {
     return this.http.get<any>(this.userUrl)
       .toPromise()
-      .then(response => response.content);
+      .then(response => response);
+  }
+
+  adicionar(user: User): Promise<User | undefined> {
+    return this.http.post<User>(
+      //this.lancamentosUrl, lancamento, {headers})
+      this.userUrl, user)
+      .toPromise();
   }
 
   excluir(codigo: number): Promise<null> {
@@ -26,6 +33,12 @@ export class UserService {
 
     //return this.http.delete(`${this.pessoasUrl}/${codigo}`, { headers })
     return this.http.delete(`${this.userUrl}/${codigo}`)
+      .toPromise()
+      .then(() => null);
+  }
+
+  editar(user: User): Promise<null> {
+    return this.http.put<User>(`${this.userUrl}/${user.id}`, user)
       .toPromise()
       .then(() => null);
   }
