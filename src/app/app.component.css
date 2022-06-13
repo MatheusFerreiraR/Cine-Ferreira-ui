@@ -38,3 +38,12 @@
   align-items: baseline;
   justify-content: space-between;
 }
+
+
+::ng-deep .large-div {
+  display: flex;
+  justify-items: center;
+  justify-content: space-between;
+  width: 80%;
+  flex-direction: inherit
+}

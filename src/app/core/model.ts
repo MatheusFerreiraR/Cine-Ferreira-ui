@@ -19,6 +19,37 @@ export class User {
       this.senha = senha;
   }
 }
+export class Movie {
+  id: number | null;
+  name: string;
+  synopsis: String;
+  catMovie: CatMovie;
+
+  constructor(
+    id: number | null,
+    name: string,
+    synopsis: String,
+    catMovie: CatMovie
+  ) {
+      this.id = id;
+      this.name = name;
+      this.synopsis = synopsis;
+      this.catMovie = catMovie;
+  }
+}
+export class CatMovie {
+  id: number | null;
+  description: string;
+
+  constructor(
+    id: number | null,
+    descricao: string
+  ) {
+      this.id = id;
+      this.description = descricao;
+  }
+}
+
 
 /*
 export class Pessoa {

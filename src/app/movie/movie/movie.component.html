@@ -1,0 +1,110 @@
+<div class="container">
+
+  <div class="ui-g large-div">
+      <h1>{{isEditing ? "Editar" : "Cadastrar"}} filme</h1>
+
+    <form class="ui-g" style="width: 100%;" autocomplete="off" (ngSubmit)="submit()" [formGroup]="form">
+
+
+      <div class="ui-g large-div">
+
+        <span class="input-form p-float-label" style="width: 40%;">
+          <input id="nome-input" type="text" pInputText formControlName="nome" style="width: 100%;">
+          <label for="nome-input">Nome</label>
+        </span>
+
+        <span class="input-form p-float-label" style="width: 45%;">
+          <p-dropdown id="categoria-input" formControlName="categoria"
+            [filter]="true" [options]="categorias" [style]="{'width':'100%'}"
+            [(ngModel)]="categoriaSelecionada" name="categoriaSelecionada">
+          </p-dropdown>
+
+           <label for="categoria">Categoria</label>
+        </span>
+
+      </div>
+
+      <div class="ui-g large-div">
+        <span class="input-form p-float-label" style="width: 100%;">
+          <textarea pInputTextarea rows="5" name="synopsis" style="width: 100%;"
+            formControlName="synopsis"></textarea>
+          <label for="synopsis">Synopsis</label>
+        </span>
+      </div>
+
+      <div class="ui-g large-div button-right">
+        <br>
+        <button pButton type="reset" class="primary-color" style="margin-right: 10px;"
+          *ngIf="isEditing" label="cancelar" (click)="stopEdit()">
+        </button>
+
+        <button pButton class="primary-color" type="submit" [disabled]="!form.valid">
+          {{isEditing ? "Editar" : "Cadastrar"}}
+        </button>
+      </div>
+
+   </form>
+
+   <div class="error-message-div" *ngIf="showErrorReq">
+    <p>{{userMsg}}</p>
+   </div>
+  </div>
+
+  <hr style="height:2px; width: 100%; margin: 50px;">
+
+  <div class="ui-g" style="width: 100%;">
+
+
+    <p-table #dt [value]="movies" [autoLayout]="true"
+      styleClass="p-datatable-customers"
+      [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+      [filterDelay]="0"
+      [paginator]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} totais"
+      [globalFilterFields]="['nome', 'movie.nome']">
+
+      <ng-template pTemplate="caption">
+          <div class="table-header header-table-align">
+              LISTA DE FILMES
+              <span class="p-input-icon-left">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text"  (input)="dt.filterGlobal($event.target.value, 'contains')"
+                  placeholder="Procure pelo nome" />
+              </span>
+          </div>
+      </ng-template>
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon></th>
+          <th>Synopsis</th>
+          <th>Categoria</th>
+          <th>Editar/Excluir</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-movie>
+        <tr>
+          <td><span>{{ movie.name }}</span></td>
+          <td>{{movie.synopsis}}</td>
+          <td>{{movie.catMovie.description}}</td>
+          <td>
+            <button pButton class="espaco-icones" icon="fa fa-trash" pTooltip="Editar"
+              (click)="getMovieToEdit(movie.id)" tooltipPosition="top">
+              <i class="pi pi-pencil"></i>
+            </button>
+            <button pButton class="espaco-icones delete-button" icon="fa fa-trash"
+              (click)="deletar(movie.id)" pTooltip="Excluir" tooltipPosition="top" style="height: 3rem">
+              <i class="pi pi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="8">Nenhum Filme encontrado.</td>
+        </tr>
+    </ng-template>
+    </p-table>
+  </div>
+</div>
+

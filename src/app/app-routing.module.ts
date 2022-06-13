@@ -8,6 +8,8 @@ import { NaoAutorizadoComponent } from './core/nao-autorizado.component';
 // Load child adicionado no modulo 21 para carregamento tardio de modulos (Lazy loading)
 const routes: Routes = [
   { path: 'user', loadChildren: () => import('./user/user.module').then(x => x.UserModule) },
+  { path: 'filmes', loadChildren: () => import('./movie/movie.module').then(x => x.MovieModule) },
+
   //{ path: 'login', loadChildren: () => import('./seguranca/seguranca.module').then(x => x.SegurancaModule) },
 
   //{ path: 'pessoas', loadChildren: './pessoas/pessoas.module#PessoasModule' },
