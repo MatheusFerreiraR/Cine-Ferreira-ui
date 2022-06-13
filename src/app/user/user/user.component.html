@@ -40,7 +40,7 @@
           *ngIf="isEditing" label="cancelar" (click)="stopEdit()">
         </button>
 
-        <button pButton class="primary-color" type="submit">
+        <button pButton class="primary-color" type="submit" [disabled]="!form.valid">
           {{isEditing ? "Editar" : "Cadastrar"}}
         </button>
       </div>
