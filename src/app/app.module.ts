@@ -9,6 +9,9 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { SegurancaModule } from './seguranca/seguranca.module';
 import { UserModule } from './user/user.module';
+import { MovieModule } from './movie/movie.module';
+import { MovieTheatherModule } from './movie-theater/movie-theater.module';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import { UserModule } from './user/user.module';
 
     CoreModule,
     SegurancaModule,
-    UserModule
+    UserModule,
+    MovieModule,
+    MovieTheatherModule
   ],
   bootstrap: [AppComponent]
 })

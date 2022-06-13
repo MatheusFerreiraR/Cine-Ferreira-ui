@@ -1,3 +1,4 @@
+import { MovieTheatherModule } from './movie-theater/movie-theater.module';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -9,6 +10,7 @@ import { NaoAutorizadoComponent } from './core/nao-autorizado.component';
 const routes: Routes = [
   { path: 'user', loadChildren: () => import('./user/user.module').then(x => x.UserModule) },
   { path: 'filmes', loadChildren: () => import('./movie/movie.module').then(x => x.MovieModule) },
+  { path: 'salas', loadChildren: () => import('./movie-theater/movie-theater.module').then(x => x.MovieTheatherModule) },
 
   //{ path: 'login', loadChildren: () => import('./seguranca/seguranca.module').then(x => x.SegurancaModule) },
 

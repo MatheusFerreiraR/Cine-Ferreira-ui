@@ -1,3 +1,4 @@
+import { NgModule } from '@angular/core';
 export class User {
   id: number | null;
   nome: string;
@@ -50,6 +51,22 @@ export class CatMovie {
   }
 }
 
+export class MovieTheater {
+  id: number | null;
+  seatQuantity: number;
+  identificationNumber: string;
+  available = false
+
+  constructor(
+    id: number | null,
+    identificationNumber: string,
+    seatQuantity: number
+  ) {
+      this.id = id;
+      this.seatQuantity = seatQuantity;
+      this.identificationNumber = identificationNumber;
+  }
+}
 
 /*
 export class Pessoa {
