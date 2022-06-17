@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from './../../environments/environment';
 import { User } from 'src/app/core/model';
 import { SegHttp } from '../seguranca/seg-http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,7 @@ import { SegHttp } from '../seguranca/seg-http';
 export class UserService {
   userUrl: string;
 
-  constructor(private http: SegHttp) {
+  constructor(private http: HttpClient) {
     this.userUrl = `${environment.apiUrl}/user`;
   }
 
@@ -40,5 +42,11 @@ export class UserService {
     return this.http.put<User>(`${this.userUrl}/${user.id}`, user)
       .toPromise()
       .then(() => null);
+  }
+
+  listarCargos(): Promise<any> {
+    return this.http.get<any>(`${this.userUrl}/positions`)
+      .toPromise()
+      .then(response => response);
   }
 }

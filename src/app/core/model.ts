@@ -4,19 +4,22 @@ export class User {
   cpf: string;
   email: string;
   senha: string;
+  idPosition: number;
 
   constructor(
     id: number | null,
     nome: string,
     cpf: string,
     email: string,
-    senha: string
+    senha: string,
+    idPosition: number
   ) {
       this.id = id;
       this.nome = nome;
       this.cpf = cpf;
       this.email = email;
       this.senha = senha;
+      this.idPosition = idPosition;
   }
 }
 export class Movie {
@@ -86,7 +89,6 @@ export class Session {
   }
 }
 
-
 export class BodyRequestGetHours {
   id: number | null;
   date: String;
@@ -98,6 +100,20 @@ export class BodyRequestGetHours {
   ) {
       this.id = id;
       this.date = date;
+  }
+}
+
+export class PositionCompany {
+  id: number | null;
+  description: String;
+
+  constructor(
+    id: number | null,
+    description: string,
+
+  ) {
+      this.id = id;
+      this.description = description;
   }
 }
 

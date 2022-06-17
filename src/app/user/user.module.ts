@@ -6,6 +6,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { DropdownModule } from 'primeng/dropdown';
 
 import { UserComponent } from './user/user.component';
 import { UserRoutingModule } from './user-routing.module';
@@ -23,6 +24,7 @@ import { UserRoutingModule } from './user-routing.module';
     InputTextModule,
     ButtonModule,
     SharedModule,
+    DropdownModule,
 
     UserRoutingModule
   ]

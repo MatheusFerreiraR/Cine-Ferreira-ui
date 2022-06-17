@@ -5,7 +5,7 @@
 
       <h1>{{isEditing ? "Editar" : "Cadastrar"}} usuário</h1>
 
-      <div class="ui-g">
+      <div class="ui-g large-div">
         <span class="input-form p-float-label">
           <input id="nome-input" type="text" pInputText formControlName="nome"
           onkeypress="return (event.charCode > 64 && event.charCode < 91)
@@ -30,6 +30,15 @@
         <span class="input-form p-float-label">
           <input id="nome-input" type="password" autocomplete="new-password" pInputText formControlName="senha" name="senha">
           <label for="nome-input">Senha</label>
+
+        </span>
+
+        <span class="input-form p-float-label">
+          <p-dropdown id="cargo-input" formControlName="cargo"
+            [filter]="true" [options]="positions" [style]="{'width':'100%'}"
+            [(ngModel)]="selectedPosition" name="selectedPosition">
+          </p-dropdown>
+          <label for="cargo-input">Cargo</label>
 
         </span>
       </div>
@@ -80,6 +89,7 @@
           <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon></th>
           <th>CPF</th>
           <th>E-mail</th>
+          <th>Cargo</th>
           <th>Editar/Excluir</th>
         </tr>
       </ng-template>
@@ -89,6 +99,7 @@
           <td><span>{{ user.nome }}</span></td>
           <td>{{user.cpf}}</td>
           <td>{{user.email}}</td>
+          <td>{{user.idPosition}}</td>
           <td>
             <button pButton class="espaco-icones" icon="fa fa-trash" pTooltip="Editar"
               (click)="getUserToEdit(user.cpf)" tooltipPosition="top">

@@ -47,3 +47,7 @@
   width: 80%;
   flex-direction: inherit;
 }
+
+::ng-deep * {
+  font-family: 'Roboto', sans-serif;
+}
