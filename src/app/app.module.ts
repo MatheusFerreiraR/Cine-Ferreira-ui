@@ -11,6 +11,7 @@ import { SegurancaModule } from './seguranca/seguranca.module';
 import { UserModule } from './user/user.module';
 import { MovieModule } from './movie/movie.module';
 import { MovieTheatherModule } from './movie-theater/movie-theater.module';
+import { SessionModule } from './session/session.module';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { MovieTheatherModule } from './movie-theater/movie-theater.module';
     SegurancaModule,
     UserModule,
     MovieModule,
-    MovieTheatherModule
+    MovieTheatherModule,
+    SessionModule
   ],
   bootstrap: [AppComponent]
 })

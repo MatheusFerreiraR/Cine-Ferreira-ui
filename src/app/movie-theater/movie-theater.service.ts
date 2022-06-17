@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { MovieTheater } from 'src/app/core/model';
 import { SegHttp } from '../seguranca/seg-http';
@@ -11,7 +10,7 @@ import { SegHttp } from '../seguranca/seg-http';
 export class MovieTheaterService {
   movieTheaterUrl: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: SegHttp) {
     this.movieTheaterUrl = `${environment.apiUrl}/movie-theater`;
   }
 

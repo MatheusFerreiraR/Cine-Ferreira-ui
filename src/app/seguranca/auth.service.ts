@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from './../../environments/environment';
@@ -16,7 +17,9 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private jwtHelper: JwtHelperService
+    private jwtHelper: JwtHelperService,
+    private router: Router
+
     ) {
       this.carregarToken();
       this.oauthTokenUrl = `${environment.apiUrl}/oauth/token`;
@@ -49,7 +52,7 @@ export class AuthService {
   obterNovoAccessToken(): Promise<void | null> {
     const headers = new HttpHeaders()
       .append('Content-Type', 'application/x-www-form-urlencoded')
-      .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
+      .append('Authorization', 'Basic bW9iaWxlOm0wYmlsMw==');
 
     const body = 'grant_type=refresh_token';
 
@@ -63,6 +66,7 @@ export class AuthService {
         return Promise.resolve(null);
       })
       .catch(response => {
+        this.router.navigate(['/login']);
         console.log('Erro ao renovar token', response);
         return Promise.resolve(null);
       });

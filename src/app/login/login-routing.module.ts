@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { LoginFormComponent } from './login-form/login-form.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginFormComponent }
+  { path: '', component: LoginFormComponent }
 ];
 
 @NgModule({
@@ -13,4 +13,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class SegurancaRoutingModule { }
+export class LoginRoutingModule { }

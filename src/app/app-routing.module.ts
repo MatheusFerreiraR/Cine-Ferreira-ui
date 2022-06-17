@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'salas', loadChildren: () => import('./movie-theater/movie-theater.module').then(x => x.MovieTheatherModule) },
   { path: 'sessoes', loadChildren: () => import('./session/session.module').then(x => x.SessionModule) },
 
-  //{ path: 'login', loadChildren: () => import('./seguranca/seguranca.module').then(x => x.SegurancaModule) },
+  { path: 'login', loadChildren: () => import('./login/login.module').then(x => x.LoginModule) },
 
   //{ path: 'pessoas', loadChildren: './pessoas/pessoas.module#PessoasModule' },
   //{ path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Movie, CatMovie } from 'src/app/core/model';
+import { Movie } from 'src/app/core/model';
 import { SegHttp } from '../seguranca/seg-http';
 
 @Injectable({
@@ -11,7 +10,7 @@ import { SegHttp } from '../seguranca/seg-http';
 export class MovieService {
   movieUrl: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: SegHttp) {
     this.movieUrl = `${environment.apiUrl}/movie`;
   }
 
