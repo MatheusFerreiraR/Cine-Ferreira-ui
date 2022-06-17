@@ -1,4 +1,3 @@
-import { NgModule } from '@angular/core';
 export class User {
   id: number | null;
   nome: string;
@@ -21,13 +20,13 @@ export class User {
   }
 }
 export class Movie {
-  id: number | null;
+  id: number | undefined;
   name: string;
   synopsis: String;
   catMovie: CatMovie;
 
   constructor(
-    id: number | null,
+    id: number | undefined,
     name: string,
     synopsis: String,
     catMovie: CatMovie
@@ -52,13 +51,13 @@ export class CatMovie {
 }
 
 export class MovieTheater {
-  id: number | null;
+  id: number | undefined;
   seatQuantity: number;
   identificationNumber: string;
   available = false
 
   constructor(
-    id: number | null,
+    id: number | undefined,
     identificationNumber: string,
     seatQuantity: number
   ) {
@@ -68,18 +67,43 @@ export class MovieTheater {
   }
 }
 
-/*
-export class Pessoa {
-  codigo: number;
-  nome: string;
-  endereco = new Endereco();
-  ativo = true;
-  contatos = new Array<Contato>();
+export class Session {
+  id: number | null;
+  movie: Movie;
+  movieTheater: MovieTheater;
+  dateTime: string;
+
+  constructor(
+    id: number | null,
+    movie: Movie,
+    movieTheater: MovieTheater,
+    dateTime: string,
+  ) {
+      this.id = id;
+      this.movie = movie;
+      this.movieTheater = movieTheater;
+      this.dateTime = dateTime;
+  }
+}
+
+
+export class BodyRequestGetHours {
+  id: number | null;
+  date: String;
+
+  constructor(
+    id: number | null,
+    date: string,
+
+  ) {
+      this.id = id;
+      this.date = date;
+  }
 }
 
 
 
-export class Lancamento {
+/*export class Lancamento {
   codigo: number;
   tipo = 'RECEITA';
   descricao: string;

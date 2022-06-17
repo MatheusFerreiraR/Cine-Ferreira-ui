@@ -1,0 +1,121 @@
+<div class="container">
+
+  <div class="ui-g large-div">
+    <form class="ui-g" style="width: 100%;" autocomplete="off" (ngSubmit)="submit()" [formGroup]="form">
+
+      <h1>{{isEditing ? "Editar" : "Cadastrar"}} sessões</h1>
+
+      <div class="ui-g large-div" style="margin-top: 10px;">
+        <span class="input-form p-float-label" style="width: 50%;">
+          <p-dropdown id="sala-input" formControlName="sala" [filter]="true"
+            [options]="movieTheaters" [style]="{'width':'100%'}" [(ngModel)]="selectedMovieTheater"
+             name="selectedMovieTheater" (onChange)="listarHorasDisponiveis(dateValue)">
+          </p-dropdown>
+
+          <label for="sala-input">Sala</label>
+        </span>
+
+        <span class="input-form p-float-label" style="width: 50%;">
+          <p-dropdown id="filme-input" formControlName="filme"
+            [filter]="true" [options]="movies" [style]="{'width':'100%'}"
+            [(ngModel)]="selectedMovie" name="selectedMovie">
+          </p-dropdown>
+          <label for="filme-input">Filme</label>
+        </span>
+      </div>
+
+      <div class="ui-g large-div">
+        <span class="input-form p-float-label" style="width: 50%;">
+          <p-calendar [(ngModel)]="dateValue" [showIcon]="true" formControlName="data"
+           (onSelect)="listarHorasDisponiveis(dateValue)" dateFormat="dd/mm/yy" [minDate]="minDate"
+           style="width: 100%; display: grid;">
+          </p-calendar>
+          <label for="nome-input">Data</label>
+        </span>
+
+        <span class="input-form p-float-label" style="width: 50%;">
+          <p-dropdown id="horas-input" formControlName="hora"
+            [filter]="true" [options]="hours" [style]="{'width':'100%'}"
+            [(ngModel)]="selectedHours" name="selectedHours"
+            [disabled]="!enableHourDropdown">
+          </p-dropdown>
+          <label for="horas-input">Hora</label>
+        </span>
+      </div>
+
+      <div class="ui-g button-right large-div">
+        <br>
+        <button pButton type="reset" class="primary-color" style="margin-right: 10px;"
+          *ngIf="isEditing" label="cancelar" (click)="stopEdit()">
+        </button>
+
+        <button pButton class="primary-color" type="submit" [disabled]="!form.valid">
+          {{isEditing ? "Editar" : "Cadastrar"}}
+        </button>
+      </div>
+
+   </form>
+
+   <div class="error-message-div" *ngIf="showErrorReq">
+    <p>{{userMsg}}</p>
+   </div>
+  </div>
+
+  <hr style="height:2px; width: 100%; margin: 50px;">
+
+  <div class="ui-g" style="width: 100%;">
+
+
+    <p-table #dt [value]="sessions" [autoLayout]="true"
+      styleClass="p-datatable-customers"
+      [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+      [filterDelay]="0"
+      [paginator]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} totais"
+      [globalFilterFields]="['dateTime', 'session.dateTime']">
+
+      <ng-template pTemplate="caption">
+          <div class="table-header header-table-align">
+              LISTA DE SESSÕES
+              <span class="p-input-icon-left">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text"  (input)="dt.filterGlobal($event.target.value, 'contains')"
+                  placeholder="Procure pela data" />
+              </span>
+          </div>
+      </ng-template>
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="nome">Data <p-sortIcon field="nome"></p-sortIcon></th>
+          <th>Sala</th>
+          <th>Filme</th>
+          <th>Editar/Excluir</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-session>
+        <tr>
+          <td><span>{{session.dateTime}}</span></td>
+          <td>{{session.movieTheater.identificationNumber}}</td>
+          <td>{{session.movie.name}}</td>
+          <td>
+            <button pButton class="espaco-icones" icon="fa fa-trash" pTooltip="Editar"
+              (click)="getSessionToEdit(session.id)" tooltipPosition="top">
+              <i class="pi pi-pencil"></i>
+            </button>
+            <button pButton class="espaco-icones delete-button" icon="fa fa-trash"
+              (click)="deletar(session.id)" pTooltip="Excluir" tooltipPosition="top" style="height: 3rem">
+              <i class="pi pi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="8">Nenhum usuário encontrado.</td>
+        </tr>
+    </ng-template>
+    </p-table>
+  </div>
+</div>
+

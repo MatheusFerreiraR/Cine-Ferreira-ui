@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'user', loadChildren: () => import('./user/user.module').then(x => x.UserModule) },
   { path: 'filmes', loadChildren: () => import('./movie/movie.module').then(x => x.MovieModule) },
   { path: 'salas', loadChildren: () => import('./movie-theater/movie-theater.module').then(x => x.MovieTheatherModule) },
+  { path: 'sessoes', loadChildren: () => import('./session/session.module').then(x => x.SessionModule) },
 
   //{ path: 'login', loadChildren: () => import('./seguranca/seguranca.module').then(x => x.SegurancaModule) },
 
