@@ -1,6 +1,6 @@
 <div class="container">
 
-  <div class="ui-g large-div">
+  <div class="ui-g large-div" *ngIf="canShow('RULE_CADASTRAR_FILME')">
       <h1>{{isEditing ? "Editar" : "Cadastrar"}} filme</h1>
 
     <form class="ui-g" style="width: 100%;" autocomplete="off" (ngSubmit)="submit()" [formGroup]="form">
@@ -50,15 +50,17 @@
    </div>
   </div>
 
-  <hr style="height:2px; width: 100%; margin: 50px;">
+  <hr style="height:2px; width: 100%; margin: 50px;" *ngIf="canShow('RULE_CADASTRAR_FILME')">
 
-  <div class="ui-g" style="width: 100%;">
-
+  <div class="ui-g" style="width: 100%;" *ngIf="canShow('RULE_PESQUISAR_FILME')">
 
     <p-table #dt [value]="movies" [autoLayout]="true"
       styleClass="p-datatable-customers"
       [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
       [filterDelay]="0"
+      scrollHeight="42.857rem"
+      scrollDirection="vertical"
+      responsiveLayout="scroll"
       [paginator]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} totais"
       [globalFilterFields]="['nome', 'movie.nome']">
 
@@ -78,16 +80,19 @@
           <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon></th>
           <th>Synopsis</th>
           <th>Categoria</th>
-          <th>Editar/Excluir</th>
+          <th *ngIf="canShow('RULE_CADASTRAR_FILME')">Editar/Excluir</th>
         </tr>
       </ng-template>
 
       <ng-template pTemplate="body" let-movie>
         <tr>
           <td><span>{{ movie.name }}</span></td>
-          <td>{{movie.synopsis}}</td>
+          <td style="width: 100%;
+          max-width: 45%;">
+            {{(movie.synopsis.length > 300) ? ((movie.synopsis).slice(0, 300) + '...') : movie.synopsis}}
+          </td>
           <td>{{movie.catMovie.description}}</td>
-          <td>
+          <td *ngIf="canShow('RULE_CADASTRAR_FILME')">
             <button pButton class="espaco-icones" icon="fa fa-trash" pTooltip="Editar"
               (click)="getMovieToEdit(movie.id)" tooltipPosition="top">
               <i class="pi pi-pencil"></i>

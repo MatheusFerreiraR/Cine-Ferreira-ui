@@ -1,6 +1,6 @@
 <div class="container">
 
-  <div class="ui-g">
+  <div class="ui-g" *ngIf="canShow('RULE_CADASTRAR_USUARIO')">
     <form class="ui-g" autocomplete="off" (ngSubmit)="submit()" [formGroup]="form">
 
       <h1>{{isEditing ? "Editar" : "Cadastrar"}} usuário</h1>
@@ -61,9 +61,9 @@
    </div>
   </div>
 
-  <hr style="height:2px; width: 100%; margin: 50px;">
+  <hr *ngIf="canShow('RULE_CADASTRAR_USUARIO')" style="height:2px; width: 100%; margin: 50px;">
 
-  <div class="ui-g" style="width: 100%;">
+  <div class="ui-g" style="width: 100%;" *ngIf="canShow('RULE_PESQUISAR_USUARIO')">
 
 
     <p-table #dt [value]="users" [autoLayout]="true"
@@ -90,7 +90,7 @@
           <th>CPF</th>
           <th>E-mail</th>
           <th>Cargo</th>
-          <th>Editar/Excluir</th>
+          <th *ngIf="canShow('RULE_CADASTRAR_USUARIO')" >Editar/Excluir</th>
         </tr>
       </ng-template>
 
@@ -100,7 +100,7 @@
           <td>{{user.cpf}}</td>
           <td>{{user.email}}</td>
           <td>{{user.idPosition}}</td>
-          <td>
+          <td *ngIf="canShow('RULE_CADASTRAR_USUARIO')">
             <button pButton class="espaco-icones" icon="fa fa-trash" pTooltip="Editar"
               (click)="getUserToEdit(user.cpf)" tooltipPosition="top">
               <i class="pi pi-pencil"></i>

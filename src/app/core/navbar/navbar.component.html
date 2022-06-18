@@ -12,7 +12,7 @@
         class="p-button-rounded p-button-secondary" (click)="exibindoMenu = !exibindoMenu">
       </button>
     </div>
-    <li class="navbar-usuario">Matheus Ferreira</li>
+    <li class="navbar-usuario">{{ auth.jwtPayload?.user_name }}</li>
     <li class="navbar-menuitem" routerLinkActive="ativo"><a routerLink="/user">Usuários</a></li>
     <li class="navbar-menuitem" routerLinkActive="ativo"><a routerLink="/filmes">Filmes</a></li>
     <li class="navbar-menuitem" routerLinkActive="ativo"><a routerLink="/salas">Salas</a></li>

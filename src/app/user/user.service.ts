@@ -12,7 +12,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 export class UserService {
   userUrl: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: SegHttp) {
     this.userUrl = `${environment.apiUrl}/user`;
   }
 

@@ -10,6 +10,7 @@ import { Table } from 'primeng/table';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { MovieTheaterService } from '../movie-theater.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from 'src/app/seguranca/auth.service';
 
 @Component({
   selector: 'app-movie-theater',
@@ -32,6 +33,7 @@ export class MovieTheaterComponent implements OnInit {
     private errorHandler: ErrorHandlerService,
     private title: Title,
     private formBuilder: FormBuilder,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -75,13 +77,13 @@ export class MovieTheaterComponent implements OnInit {
     const qtd_assento = this.form.get('qtd_assento')?.value;
 
 
-    const movieTheater = new MovieTheater(null , num_indentificacao, qtd_assento)
+    const movieTheater = new MovieTheater(undefined , num_indentificacao, qtd_assento)
 
     this.movieTheaterService.adicionar(movieTheater)
     .then(() => {
       this.form.reset();
       this.listarTodas();
-      this.toasty.success('o usuário '+ num_indentificacao +' foi cadastrado com sucesso!', 'Usuário cadastrado com sucesso!');
+      this.toasty.success('A sala '+ num_indentificacao +' foi cadastrada com sucesso!', 'Sala cadastrado com sucesso!');
     })
     .catch(erro => {
       this.toasty.error('Erro ao tentar cadastrar!');
@@ -157,6 +159,10 @@ export class MovieTheaterComponent implements OnInit {
     } else {
       this.userMsg = erro.error[0].userMessage.toUpperCase();
     }
+  }
+
+  canShow(value: string) {
+    return this.authService.temPermissao(value)
   }
 
 }

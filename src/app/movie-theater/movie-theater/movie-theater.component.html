@@ -1,6 +1,6 @@
 <div class="container">
 
-  <div class="ui-g large-div">
+  <div class="ui-g large-div" *ngIf="canShow('RULE_CADASTRAR_SALA')">
     <form class="ui-g" autocomplete="off" (ngSubmit)="submit()" [formGroup]="form">
 
       <h1>{{isEditing ? "Editar" : "Cadastrar"}} sala</h1>
@@ -40,10 +40,9 @@
    </div>
   </div>
 
-  <hr style="height:2px; width: 100%; margin: 50px;">
+  <hr style="height:2px; width: 100%; margin: 50px;" *ngIf="canShow('RULE_CADASTRAR_SALA')">
 
-  <div class="ui-g" style="width: 100%;">
-
+  <div class="ui-g" style="width: 100%;" *ngIf="canShow('RULE_PESQUISAR_SALA')">
 
     <p-table #dt [value]="movieTheaters" [autoLayout]="true"
       styleClass="p-datatable-customers"
@@ -67,7 +66,7 @@
         <tr>
           <th pSortableColumn="identificationNumber">Número de identificação <p-sortIcon field="num_indentificacao"></p-sortIcon></th>
           <th>Quantidade de assento</th>
-          <th>Editar/Excluir</th>
+          <th *ngIf="canShow('RULE_CADASTRAR_SALA')">Editar/Excluir</th>
         </tr>
       </ng-template>
 
@@ -75,7 +74,7 @@
         <tr>
           <td><span>{{ movieTheater.identificationNumber }}</span></td>
           <td>{{movieTheater.seatQuantity}}</td>
-          <td>
+          <td *ngIf="canShow('RULE_CADASTRAR_SALA')">
             <button pButton class="espaco-icones" icon="fa fa-trash" pTooltip="Editar"
               (click)="getMovieTheaterToEdit(movieTheater.identificationNumber)" tooltipPosition="top">
               <i class="pi pi-pencil"></i>

@@ -57,7 +57,6 @@ export class MovieTheater {
   id: number | undefined;
   seatQuantity: number;
   identificationNumber: string;
-  available = false
 
   constructor(
     id: number | undefined,

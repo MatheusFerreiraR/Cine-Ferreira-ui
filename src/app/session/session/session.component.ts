@@ -10,7 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Session, MovieTheater, Movie, BodyRequestGetHours } from '../../core/model';
 import { MovieTheaterService } from '../../movie-theater/movie-theater.service';
 import { MovieService } from 'src/app/movie/movie.service';
-
+import { AuthService } from 'src/app/seguranca/auth.service';
 
 @Component({
   selector: 'app-session',
@@ -49,7 +49,7 @@ export class SessionComponent implements OnInit {
     private formBuilder: FormBuilder,
     private movieTheaterService: MovieTheaterService,
     private movieService: MovieService,
-
+    private authService: AuthService
   ) {
     this.minDate = new Date();
   }
@@ -240,6 +240,10 @@ export class SessionComponent implements OnInit {
     } else {
       this.userMsg = erro.error[0].userMessage.toUpperCase();
     }
+  }
+
+  canShow(value: string) {
+    return this.authService.temPermissao(value)
   }
 
 }

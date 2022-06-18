@@ -18,15 +18,20 @@ export class NavbarComponent implements OnInit {
     public auth: AuthService,
     private router: Router,
     private errorHandler: ErrorHandlerService
-  ) {}
+  ) {
+    console.log(auth);
+  }
   ngOnInit(): void {}
 
+  criarNovoAccessToken() {
+    this.auth.obterNovoAccessToken();
+  }
+
   logout() {
-    this.router.navigate(['/login']);
-    /*this.auth.logout()
+    this.auth.logout()
       .then(() => {
         this.router.navigate(['/login']);
       })
-      .catch(erro => this.errorHandler.handle(erro));*/
+      .catch(erro => this.errorHandler.handle(erro));
   }
 }

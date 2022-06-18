@@ -10,6 +10,7 @@ import { Table } from 'primeng/table';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { MovieService } from '../movie.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from 'src/app/seguranca/auth.service';
 
 @Component({
   selector: 'app-movie',
@@ -36,6 +37,7 @@ export class MovieComponent implements OnInit {
     private errorHandler: ErrorHandlerService,
     private title: Title,
     private formBuilder: FormBuilder,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -89,11 +91,12 @@ export class MovieComponent implements OnInit {
 
     if(catMovie != null) {
 
-      const movie = new Movie(null , nome, synopsis, catMovie)
+      const movie = new Movie(undefined , nome, synopsis, catMovie)
 
       this.MovieService.adicionar(movie)
       .then(() => {
         this.form.reset();
+        this.categoriaSelecionada = catMovie.id!
         this.listarTodos();
         this.toasty.success('o filmes '+ nome +' foi cadastrado com sucesso!', 'filmes cadastrado com sucesso!');
       })
@@ -123,6 +126,7 @@ export class MovieComponent implements OnInit {
           this.toasty.success('o filme '+ movieToEdit?.name +' foi editado com sucesso!', 'Filme editado com sucesso!');
 
           this.stopEdit()
+          this.categoriaSelecionada = catMovie.id!
           this.listarTodos()
         })
         .catch(erro => {
@@ -191,6 +195,10 @@ export class MovieComponent implements OnInit {
     } else {
       this.userMsg = erro.error[0].userMessage.toUpperCase();
     }
+  }
+
+  canShow(value: string) {
+    return this.authService.temPermissao(value)
   }
 
 }

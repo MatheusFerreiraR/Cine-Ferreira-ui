@@ -29,7 +29,7 @@ export class AuthService {
   login(usuario: string, senha: string): Promise<void> {
     const headers = new HttpHeaders()
       .append('Content-Type', 'application/x-www-form-urlencoded')
-      .append('Authorization', 'Basic bW9iaWxlOm0wYmlsMw==');
+      .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
 
     const body = `username=${usuario}&password=${senha}&grant_type=password`;
 
@@ -52,7 +52,7 @@ export class AuthService {
   obterNovoAccessToken(): Promise<void | null> {
     const headers = new HttpHeaders()
       .append('Content-Type', 'application/x-www-form-urlencoded')
-      .append('Authorization', 'Basic bW9iaWxlOm0wYmlsMw==');
+      .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
 
     const body = 'grant_type=refresh_token';
 
@@ -73,11 +73,15 @@ export class AuthService {
   }
 
   limparAccessToken() {
+    console.log(localStorage)
     localStorage.removeItem('token');
+    console.log(localStorage)
+
     this.jwtPayload = null;
   }
 
   logout() {
+    console.log(this.tokensRevokeurl)
     return this.http.delete(this.tokensRevokeurl, { withCredentials: true })
       .toPromise()
       .then(() => {

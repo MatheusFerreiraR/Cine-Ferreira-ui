@@ -10,7 +10,7 @@ import { PositionCompany, User } from './../../core/model';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { UserService } from './../user.service';
 import { HttpErrorResponse } from '@angular/common/http';
-
+import { AuthService } from 'src/app/seguranca/auth.service';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -35,6 +35,7 @@ export class UserComponent implements OnInit {
     private errorHandler: ErrorHandlerService,
     private title: Title,
     private formBuilder: FormBuilder,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -111,6 +112,7 @@ export class UserComponent implements OnInit {
       this.userService.adicionar(user)
       .then(() => {
         this.form.reset();
+        this.selectedPosition = position.id!
         this.listarTodas();
         this.toasty.success('o usuário '+ nome +' foi cadastrado com sucesso!', 'Usuário cadastrado com sucesso!');
       })
@@ -140,8 +142,8 @@ export class UserComponent implements OnInit {
       this.userService.editar(userToEdit)
       .then(resultado => {
         this.toasty.success('o usuário '+ userToEdit?.nome +' foi editado com sucesso!', 'Usuário editado com sucesso!');
-
         this.stopEdit()
+        this.selectedPosition = position.id!
         this.listarTodas()
       })
       .catch(erro => {
@@ -199,6 +201,10 @@ export class UserComponent implements OnInit {
     } else {
       this.userMsg = erro.error[0].userMessage.toUpperCase();
     }
+  }
+
+  canShow(value: string) {
+    return this.authService.temPermissao(value)
   }
 
 }
